@@ -20,4 +20,11 @@ The commit type can include the following:
 - [ ] security – in case of vulnerabilities
 - [ ] hotfix – a bug hot fix has occurred
 
-- signed by the author @gurkanfikretgunak
+## Assistant commit footer (AI-generated commits only)
+
+When an assistant proposes the **full** commit message, add one final line after a blank line (exact wording, lowercase):
+
+- **Cursor**: `signed by cursor`
+- **Claude** (including Claude Code): `signed by claude`
+
+Do not add other signature lines (for example author social handles) to commits. Human-authored commits may omit this footer.

@@ -8,6 +8,7 @@ alwaysApply: true
 - **Source of truth**: For allowed commit types and meanings, use the repo root `commits.md` file only; do not invent new types.
 - **Format**: Single-line subject `type: short description` (optional scope: `type(scope): description`). Lowercase English `type`; clear subject-style summary, no trailing period.
 - **Body**: If needed, after a blank line use bullets or a short paragraph for context; explain what changed and why.
+- **Assistant footer** (when Cursor proposes the full message): after a blank line, end with exactly **`signed by cursor`**. Do not use author-handle signatures or `signed by claude` in this environment. See `commits.md` for the shared policy. Human-authored commits may omit this line.
 
 - **Bad examples**: `fixed stuff`, `WIP`, a missing type, or a `type` not listed in `commits.md`.
 
@@ -16,5 +17,5 @@ alwaysApply: true
   ```
   feat: add export for widget settings
 
-  signed by the author @gurkanfikretgunak
+  signed by cursor
   ```
