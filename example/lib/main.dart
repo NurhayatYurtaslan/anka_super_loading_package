@@ -1,11 +1,15 @@
 import 'package:anka_super_loading_package/anka_super_loading_package.dart';
 import 'package:flutter/material.dart';
 
+/// Sample app for **anka_super_loading_package**: gallery, detail playground, and theme QA.
+///
+/// Not published to pub.dev; it exists to validate loaders under light/dark
+/// themes and different [AnkaSuperLoading] parameters.
 void main() {
   runApp(const ExampleApp());
 }
 
-/// Root app with light / dark / system theme toggle.
+/// Root widget: hosts [MaterialApp] and forwards theme controls to [GalleryPage].
 class ExampleApp extends StatefulWidget {
   const ExampleApp({super.key});
 
@@ -16,6 +20,7 @@ class ExampleApp extends StatefulWidget {
 class _ExampleAppState extends State<ExampleApp> {
   ThemeMode _themeMode = ThemeMode.system;
 
+  /// Rotates [ThemeMode] for the app bar brightness control.
   void _cycleTheme() {
     setState(() {
       _themeMode = switch (_themeMode) {
@@ -56,7 +61,10 @@ class _ExampleAppState extends State<ExampleApp> {
   }
 }
 
-/// Lists all [LoadingStyle] presets and opens a detail screen on tap.
+/// Lists every [LoadingStyle] and opens [StyleDemoPage] when a row is tapped.
+///
+/// [themeModeLabel] is shown as the app bar brightness control tooltip.
+/// [onToggleTheme] cycles [ThemeMode]: system → light → dark → system.
 class GalleryPage extends StatelessWidget {
   const GalleryPage({
     super.key,
@@ -64,7 +72,10 @@ class GalleryPage extends StatelessWidget {
     required this.onToggleTheme,
   });
 
+  /// Tooltip string for the theme toggle action (matches current [ThemeMode]).
   final String themeModeLabel;
+
+  /// Switches [ExampleApp]'s [MaterialApp.themeMode].
   final VoidCallback onToggleTheme;
 
   @override
@@ -118,10 +129,13 @@ class GalleryPage extends StatelessWidget {
   }
 }
 
-/// Per-style playground with size, speed, and colour controls.
+/// Per-style playground: live [AnkaSuperLoading] plus size, duration, and colour.
+///
+/// Sliders map directly to widget constructor arguments for quick visual QA.
 class StyleDemoPage extends StatefulWidget {
   const StyleDemoPage({super.key, required this.style});
 
+  /// Which loader preset this page demonstrates.
   final LoadingStyle style;
 
   @override
@@ -133,6 +147,7 @@ class _StyleDemoPageState extends State<StyleDemoPage> {
   double _durationMs = 1400;
   Color _color = Colors.indigo;
 
+  /// Fixed palette so the demo avoids a heavy colour-picker dependency.
   static const _presetColors = <Color>[
     Colors.indigo,
     Colors.teal,
@@ -234,21 +249,25 @@ class _StyleDemoPageState extends State<StyleDemoPage> {
     );
   }
 
+  /// Minimal copy-paste sample matching the current [style] enum name.
   String _snippet(LoadingStyle style) {
     final name = style.name;
     return "AnkaSuperLoading(\n  style: LoadingStyle.$name,\n  size: 64,\n  duration: const Duration(milliseconds: 1400),\n);";
   }
 }
 
-/// Human-readable copy for each [LoadingStyle].
+/// Titles and one-line descriptions shown in the gallery and detail header.
 class StyleMeta {
   const StyleMeta({required this.title, required this.subtitle});
 
+  /// Short name for list tiles and the detail app bar.
   final String title;
+
+  /// Single-sentence hint for when to use this style.
   final String subtitle;
 }
 
-/// Gallery labels keyed by [LoadingStyle].
+/// Static copy for the gallery; keys cover every [LoadingStyle] value.
 const styleCatalog = <LoadingStyle, StyleMeta>{
   LoadingStyle.pulseOrbit: StyleMeta(
     title: 'Pulse orbit',

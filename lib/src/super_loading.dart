@@ -1,3 +1,8 @@
+/// Layout, semantics, and style dispatch for [AnkaSuperLoading].
+///
+/// Individual animations are implemented in sibling `*_loader.dart` files.
+library;
+
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -45,17 +50,20 @@ class AnkaSuperLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     final resolvedColor = color ?? Theme.of(context).colorScheme.primary;
     final resolvedDuration = duration ?? const Duration(milliseconds: 1400);
+    // Respect system accessibility: no looping animation when disabled.
     final staticOnly = MediaQuery.maybeOf(context)?.disableAnimations ?? false;
 
     return LayoutBuilder(
       builder: (context, constraints) {
         final requested = size ?? kAnkaDefaultLoadingSize;
+        // Unbounded constraints (e.g. inside scrollables) fall back to [requested].
         final maxW = constraints.maxWidth.isFinite
             ? constraints.maxWidth
             : requested;
         final maxH = constraints.maxHeight.isFinite
             ? constraints.maxHeight
             : requested;
+        // Keep a sensible minimum so shrink-wrapped parents never collapse to zero.
         final maxSide = math.max(
           kAnkaDefaultLoadingSize * 0.25,
           math.min(maxW, maxH),
@@ -84,6 +92,7 @@ class AnkaSuperLoading extends StatelessWidget {
   }
 }
 
+/// Maps [LoadingStyle] to the matching loader implementation.
 Widget _buildChild({
   required LoadingStyle style,
   required Color color,

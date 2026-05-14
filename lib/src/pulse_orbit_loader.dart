@@ -2,7 +2,10 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-/// Three dots with staggered scale / emphasis.
+/// Three dots whose scale and opacity follow a staggered sine wave.
+///
+/// Each dot is offset by one third of a period so the pulse travels across
+/// the row. [staticOnly] shows all dots at full emphasis without motion.
 class PulseOrbitLoader extends StatefulWidget {
   const PulseOrbitLoader({
     super.key,
@@ -12,9 +15,16 @@ class PulseOrbitLoader extends StatefulWidget {
     required this.staticOnly,
   });
 
+  /// Dot fill colour.
   final Color color;
+
+  /// Bounding square side in logical pixels.
   final double size;
+
+  /// Duration of one full pulse cycle.
   final Duration duration;
+
+  /// When true, animation stops and dots render at neutral scale/opacity.
   final bool staticOnly;
 
   @override
@@ -73,6 +83,7 @@ class _PulseOrbitLoaderState extends State<PulseOrbitLoader>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(3, (i) {
+              // Stagger each dot by 1/3 of a period so the wave reads left-to-right.
               final phase = widget.staticOnly ? 0.0 : (_controller.value + i / 3) % 1.0;
               final t = math.sin(phase * math.pi * 2);
               final scale = widget.staticOnly ? 1.0 : 0.55 + 0.45 * ((t + 1) / 2);

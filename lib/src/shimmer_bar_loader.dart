@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 /// Rounded horizontal bar with a travelling shimmer highlight.
+///
+/// The highlight is a [LinearGradient] sliding in logical horizontal space.
+/// [staticOnly] freezes the highlight mid-bar for reduced motion.
 class ShimmerBarLoader extends StatefulWidget {
   const ShimmerBarLoader({
     super.key,
@@ -10,9 +13,16 @@ class ShimmerBarLoader extends StatefulWidget {
     required this.staticOnly,
   });
 
+  /// Base and highlight tones are derived from this colour.
   final Color color;
+
+  /// Total square bound; the bar spans most of the width inside this box.
   final double size;
+
+  /// Duration of one full sweep of the highlight across the bar.
   final Duration duration;
+
+  /// When true, the gradient stops animating at a fixed offset.
   final bool staticOnly;
 
   @override
@@ -95,6 +105,7 @@ class _ShimmerBarLoaderState extends State<ShimmerBarLoader>
   }
 }
 
+/// Fills the bar with a three-stop gradient; [highlightT] shifts alignment.
 class _ShimmerBarPainter extends CustomPainter {
   _ShimmerBarPainter({
     required this.baseColor,
@@ -111,6 +122,7 @@ class _ShimmerBarPainter extends CustomPainter {
     final rect = Offset.zero & size;
     final r = RRect.fromRectAndRadius(rect, Radius.circular(size.height / 2));
     final t = highlightT;
+    // Shift both gradient endpoints so the bright band travels left-to-right.
     final gradient = LinearGradient(
       begin: Alignment(-1.1 + 2.2 * t, 0),
       end: Alignment(0.1 + 2.2 * t, 0),

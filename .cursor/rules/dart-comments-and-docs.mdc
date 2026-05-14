@@ -1,0 +1,27 @@
+---
+description: English comments and doc comments that explain structure and intent in Dart code.
+globs: "**/*.dart"
+alwaysApply: false
+---
+
+# Dart comments and documentation
+
+## Language
+
+- **All** comments and doc comments (`///`, `//`, `/* */`) must be **English**. Do not mix Turkish or other languages in code comments.
+
+## What to document
+
+- **Public API** (`lib/`, exported types): use `///` doc comments on libraries (where applicable), public classes, enums, typedefs, extension names, and **public** constructors, fields, getters, setters, and methods. State purpose, behaviour contracts, and important parameters or return values—not a word-for-word repeat of the signature.
+- **Structure**: for non-trivial files or widgets, a short top-of-file or class-level `///` block is welcome when it clarifies layout, animation lifecycle, or how pieces fit together.
+- **Non-obvious logic**: use `//` for algorithms, timing, invariants, workarounds, or anything a reader would ask “why?” about. Prefer **why** over **what** when the code already shows what happens.
+
+## What to skip
+
+- Do not comment every line or restate obvious code (`// increment i`).
+- Do not leave stale comments; update or remove them when behaviour changes.
+
+## Style
+
+- Prefer `///` for API documentation (Dart doc tool).
+- Keep comments concise and grammatically correct; use full sentences for doc comments where it helps clarity.

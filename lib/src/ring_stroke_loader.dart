@@ -2,7 +2,11 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-/// Indeterminate ring: sweeping arc on a circle.
+/// Indeterminate ring: a single sweeping arc on a stroked circle.
+///
+/// Uses one [AnimationController] for rotation. [_RingStrokePainter] performs
+/// all canvas work. When [staticOnly] is true, the arc freezes for reduced
+/// motion or when animations are disabled.
 class RingStrokeLoader extends StatefulWidget {
   const RingStrokeLoader({
     super.key,
@@ -12,9 +16,16 @@ class RingStrokeLoader extends StatefulWidget {
     required this.staticOnly,
   });
 
+  /// Arc colour (stroke only; no fill).
   final Color color;
+
+  /// Bounding square side in logical pixels.
   final double size;
+
+  /// Duration of one approximate visual loop (two rotations of the sweep).
   final Duration duration;
+
+  /// When true, the controller stops and a fixed frame is shown.
   final bool staticOnly;
 
   @override
@@ -78,6 +89,7 @@ class _RingStrokeLoaderState extends State<RingStrokeLoader>
   }
 }
 
+/// Paints one rounded arc; [rotation] is the start angle in radians.
 class _RingStrokePainter extends CustomPainter {
   _RingStrokePainter({
     required this.color,
@@ -98,6 +110,7 @@ class _RingStrokePainter extends CustomPainter {
       ..strokeWidth = stroke
       ..strokeCap = StrokeCap.round;
 
+    // Less than a full turn so the gap stays visible (classic spinner read).
     const sweep = 1.35;
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),

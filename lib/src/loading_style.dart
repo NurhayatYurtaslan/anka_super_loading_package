@@ -1,6 +1,7 @@
 /// Visual presets for [AnkaSuperLoading].
 ///
-/// Values are stable public API; avoid renaming without a major version bump.
+/// Each value maps to a dedicated implementation in `lib/src/`. Enum names
+/// are stable public API; avoid renaming without a major version bump.
 enum LoadingStyle {
   /// Three dots with a sequential pulse / scale wave.
   pulseOrbit,

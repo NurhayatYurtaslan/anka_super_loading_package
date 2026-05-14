@@ -2,7 +2,10 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-/// Row of dots moving vertically in a sine wave.
+/// Five dots translated on Y by a sine wave with per-index phase offset.
+///
+/// Dot size and padding are tuned so the row fits a square [size] without
+/// horizontal overflow in tight layouts. [staticOnly] freezes a mid-wave pose.
 class WaveDotsLoader extends StatefulWidget {
   const WaveDotsLoader({
     super.key,
@@ -12,9 +15,16 @@ class WaveDotsLoader extends StatefulWidget {
     required this.staticOnly,
   });
 
+  /// Dot fill colour.
   final Color color;
+
+  /// Bounding square side in logical pixels.
   final double size;
+
+  /// Duration of one vertical oscillation cycle (shared phase driver).
   final Duration duration;
+
+  /// When true, dots stop moving and show a fixed wave snapshot.
   final bool staticOnly;
 
   @override
@@ -61,6 +71,7 @@ class _WaveDotsLoaderState extends State<WaveDotsLoader>
 
   @override
   Widget build(BuildContext context) {
+    // Five dots balance density and fitting inside [size] with narrow padding.
     const count = 5;
     final dot = widget.size * 0.11;
     final amplitude = widget.size * 0.14;

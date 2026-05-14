@@ -2,7 +2,10 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-/// Three short arcs with staggered rotation.
+/// Three short arcs on one ring, each rotated by 120° plus a shared spin.
+///
+/// [_SegmentSpinnerPainter] draws all segments in one pass. [staticOnly]
+/// pins [progress] so the icon reads as idle while remaining recognizable.
 class SegmentSpinnerLoader extends StatefulWidget {
   const SegmentSpinnerLoader({
     super.key,
@@ -12,9 +15,16 @@ class SegmentSpinnerLoader extends StatefulWidget {
     required this.staticOnly,
   });
 
+  /// Stroke colour for every arc segment.
   final Color color;
+
+  /// Bounding square side in logical pixels.
   final double size;
+
+  /// Duration of one full rotation cycle of the combined pattern.
   final Duration duration;
+
+  /// When true, the spinner stops at a fixed [progress] value.
   final bool staticOnly;
 
   @override
@@ -76,6 +86,7 @@ class _SegmentSpinnerLoaderState extends State<SegmentSpinnerLoader>
   }
 }
 
+/// Draws three equal arc segments around [center] with shared [progress].
 class _SegmentSpinnerPainter extends CustomPainter {
   _SegmentSpinnerPainter({
     required this.color,
@@ -98,6 +109,7 @@ class _SegmentSpinnerPainter extends CustomPainter {
 
     const arcSweep = math.pi / 3;
     for (var i = 0; i < 3; i++) {
+      // Evenly space segments around the circle, then spin the whole set.
       final base = (i * 2 * math.pi / 3) + progress * 2 * math.pi * 2;
       canvas.drawArc(
         Rect.fromCircle(center: center, radius: radius),
