@@ -1,0 +1,32 @@
+---
+description: Semver rules for library version, pubspec constraints, and dependency version style.
+globs: "**/pubspec.yaml"
+alwaysApply: false
+---
+
+# Package and dependency versions
+
+## Library `version` (root `pubspec.yaml`)
+
+- Shape: `MAJOR.MINOR.PATCH` (Dart [semver](https://semver.org/spec/v2.0.0.html)); for pre-releases use [pub versioning syntax](https://dart.dev/tools/pub/versioning) such as `1.2.3-beta.1`.
+- **MAJOR**: breaking API changes or removed support.
+- **MINOR**: backward-compatible new features or meaningful expansion.
+- **PATCH**: bug fixes or small changes that do not change intended behavior.
+
+When bumping a release, the top `CHANGELOG.md` heading and root `pubspec.yaml` `version` must show the same version.
+
+## `environment` (SDK / Flutter)
+
+- Prefer a realistic lower bound (`^3.10.8`); reflect the minimum SDK the package actually supports.
+- When raising the `flutter:` lower bound, avoid breaking consumers unnecessarily; do not bump without reason.
+
+## `dependencies` / `dev_dependencies`
+
+- For published packages, prefer `^x.y.z` (caret) so patch/minor-safe updates are allowed.
+- SDK dependencies (`sdk: flutter`, etc.) stay without a version constraint field.
+- If the sample app (`example/pubspec.yaml`) uses `path: ..`, tighten **transitive** pins in the example only when needed; do not conflate that with the library’s own `pubspec` policy.
+
+## Pre-publish checks
+
+- Validate publish readiness with `dart pub publish --dry-run`.
+- For breaking changes: bump **MAJOR** and add an explicit **Breaking** section in `CHANGELOG.md`.

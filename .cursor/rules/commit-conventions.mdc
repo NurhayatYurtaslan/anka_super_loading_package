@@ -1,20 +1,17 @@
 ---
-description: Git commit mesajları commits.md’deki tiplere ve biçime uymalıdır.
+description: Git commit messages must follow types and format defined in commits.md.
 alwaysApply: true
 ---
 
-# Commit mesajları
+# Commit messages
 
-- **Kaynak**: İzin verilen commit türleri ve açıklamaları için repo kökündeki `commits.md` dosyası tek doğruluk kaynağıdır; yeni bir tür uydurma.
-- **Biçim**: Tek satır özeti `type: kısa açıklama` (isteğe bağlı kapsam: `type(kapsam): açıklama`). İngilizce küçük harf `type`; konu cümlesi gibi net bir öz, nokta ile bitirme.
-- **Gövde**: Gerekirse boş satırdan sonra madde madde veya kısa paragrafla bağlam ver; ne ve neden olduğunu yaz.
-- **İmza**: `commits.md` sonundaki imza satırına uy: commit mesajının sonuna şu satırı ekle:
+- **Source of truth**: For allowed commit types and meanings, use the repo root `commits.md` file only; do not invent new types.
+- **Format**: Single-line subject `type: short description` (optional scope: `type(scope): description`). Lowercase English `type`; clear subject-style summary, no trailing period.
+- **Body**: If needed, after a blank line use bullets or a short paragraph for context; explain what changed and why.
 
-  `signed by the author @gurkanfikretgunak`
+- **Bad examples**: `fixed stuff`, `WIP`, a missing type, or a `type` not listed in `commits.md`.
 
-- **Yanlış örnek**: `fixed stuff`, `WIP`, türü olmayan veya `commits.md` listesinde olmayan bir `type`.
-
-- **Doğru örnek**:
+- **Good example**:
 
   ```
   feat: add export for widget settings

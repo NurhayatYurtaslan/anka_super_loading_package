@@ -1,32 +1,31 @@
 ---
 name: repo-commit-messages
 description: >-
-  Bu repoda git commit mesajlarını `commits.md` ile hizalar: izin verilen
-  type listesi, mesaj şablonu ve imza satırı. Kullanıcı commit, git commit,
-  conventional commit, stage, PR öncesi özet veya `commits.md` dediğinde
-  kullan.
+  Aligns git commit messages in this repo with `commits.md`: allowed type list,
+  message shape, and signature line. Use when the user mentions commit, git
+  commit, conventional commit, staging, pre-PR summary, or `commits.md`.
 ---
 
-# Repo commit mesajları
+# Repo commit messages
 
-## Kaynak
+## Source
 
-Tüm commit **type** değerleri ve anlamları `commits.md` içinde listelenmiştir. Özet (liste değişirse dosyayı oku):
+All commit **type** values and meanings are listed in `commits.md`. Summary below (if the list changes, read the file):
 
 `feat`, `fix`, `chore`, `refactor`, `docs`, `style`, `test`, `perf`, `ci`, `build`, `revert`, `add`, `remove`, `update`, `rename`, `move`, `copy`, `security`, `hotfix`
 
-## Adımlar
+## Steps
 
-1. Değişikliği sınıflandır: yukarıdaki türlerden **birini** seç; birden fazla ana tema varsa mantıklı şekilde böl veya en baskın türü kullan.
-2. Özet satırı: `type: 50 karakteri aşmayan, emir kipi veya konu cümlesi` (gerekirse `type(scope): ...`).
-3. Gövde: breaking change, migration veya review için gerekliyse ekle.
-4. Mesajın **son satırı** tam olarak şu olmalıdır (commits.md):
+1. Classify the change: pick **one** of the types above; if there are multiple themes, split sensibly or use the dominant type.
+2. Subject line: `type: imperative or subject-style summary under ~50 chars` (optionally `type(scope): ...`).
+3. Body: add only if needed for breaking changes, migrations, or review context.
+4. The message **must end** with this exact line (per `commits.md`):
 
    `signed by the author @gurkanfikretgunak`
 
-5. Kullanıcıya önermeden önce type’ın `commits.md` ile uyumunu kontrol et.
+5. Before suggesting a message to the user, verify the type matches `commits.md`.
 
-## Örnekler
+## Examples
 
 **fix**
 
@@ -52,6 +51,6 @@ refactor: extract session refresh into service
 signed by the author @gurkanfikretgunak
 ```
 
-## Çok dosya / karma değişiklik
+## Multi-file / mixed changes
 
-Özet satırında en önemli etkiyi yansıt; gövdede diğer başlıkları kısaca listele. Gerekirse kullanıcıya iki ayrı commit öner.
+Reflect the highest-impact theme in the subject; list other areas briefly in the body. Suggest two separate commits when that is clearer.
