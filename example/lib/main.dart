@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_package/project_package.dart';
+import 'package:anka_super_loading_package/anka_super_loading_package.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'project_package örneği',
+      title: 'anka_super_loading_package örneği',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -42,7 +42,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('project_package example'),
+        title: const Text('anka_super_loading_package example'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Center(

@@ -1,6 +1,6 @@
 {
-    "name": "project_package_example",
-    "short_name": "project_package_example",
+    "name": "anka_super_loading_package_example",
+    "short_name": "anka_super_loading_package_example",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

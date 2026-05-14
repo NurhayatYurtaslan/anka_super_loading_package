@@ -1,4 +1,4 @@
-# project_package_example
+# anka_super_loading_package_example
 
 A new Flutter project.
 
