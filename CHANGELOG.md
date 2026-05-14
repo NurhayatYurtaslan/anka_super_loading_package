@@ -1,3 +1,7 @@
+## 0.1.1
+
+* Expand English dartdoc and inline comments across `lib/src` loaders, [AnkaSuperLoading], and the example gallery app (no API or behaviour changes).
+
 ## 0.1.0
 
 * Initial public API: `LoadingStyle` with five presets and `AnkaSuperLoading` widget.

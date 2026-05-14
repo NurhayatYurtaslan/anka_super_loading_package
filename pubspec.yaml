@@ -2,7 +2,7 @@ name: anka_super_loading_package
 description: >-
   Five curated indeterminate loading animations for Flutter (pulse dots, ring,
   shimmer bar, segment spinner, wave dots) behind one AnkaSuperLoading widget.
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/NurhayatYurtaslan/anka_super_loading_package
 repository: https://github.com/NurhayatYurtaslan/anka_super_loading_package
 issue_tracker: https://github.com/NurhayatYurtaslan/anka_super_loading_package/issues

@@ -16,7 +16,7 @@ Design notes and roadmap live in [doc/analysis.md](doc/analysis.md).
 
 ```yaml
 dependencies:
-  anka_super_loading_package: ^0.1.0
+  anka_super_loading_package: ^0.1.1
 ```
 
 ```bash
