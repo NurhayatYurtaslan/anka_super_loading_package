@@ -1,71 +1,273 @@
-import 'package:flutter/material.dart';
 import 'package:anka_super_loading_package/anka_super_loading_package.dart';
+import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ExampleApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+/// Root app with light / dark / system theme toggle.
+class ExampleApp extends StatefulWidget {
+  const ExampleApp({super.key});
+
+  @override
+  State<ExampleApp> createState() => _ExampleAppState();
+}
+
+class _ExampleAppState extends State<ExampleApp> {
+  ThemeMode _themeMode = ThemeMode.system;
+
+  void _cycleTheme() {
+    setState(() {
+      _themeMode = switch (_themeMode) {
+        ThemeMode.system => ThemeMode.light,
+        ThemeMode.light => ThemeMode.dark,
+        ThemeMode.dark => ThemeMode.system,
+      };
+    });
+  }
+
+  String get _themeLabel => switch (_themeMode) {
+        ThemeMode.system => 'System theme',
+        ThemeMode.light => 'Light theme',
+        ThemeMode.dark => 'Dark theme',
+      };
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'anka_super_loading_package örneği',
+      title: 'anka_super_loading_package example',
+      themeMode: _themeMode,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         useMaterial3: true,
       ),
-      home: const DemoHomePage(),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.indigo,
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+      ),
+      home: GalleryPage(
+        themeModeLabel: _themeLabel,
+        onToggleTheme: _cycleTheme,
+      ),
     );
   }
 }
 
-class DemoHomePage extends StatefulWidget {
-  const DemoHomePage({super.key});
+/// Lists all [LoadingStyle] presets and opens a detail screen on tap.
+class GalleryPage extends StatelessWidget {
+  const GalleryPage({
+    super.key,
+    required this.themeModeLabel,
+    required this.onToggleTheme,
+  });
 
-  @override
-  State<DemoHomePage> createState() => _DemoHomePageState();
-}
-
-class _DemoHomePageState extends State<DemoHomePage> {
-  final Calculator _calculator = Calculator();
-  int _value = 0;
-
-  void _addOne() {
-    setState(() {
-      _value = _calculator.addOne(_value);
-    });
-  }
+  final String themeModeLabel;
+  final VoidCallback onToggleTheme;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('anka_super_loading_package example'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Loading style gallery'),
+        actions: [
+          IconButton(
+            tooltip: themeModeLabel,
+            onPressed: onToggleTheme,
+            icon: const Icon(Icons.brightness_6_outlined),
+          ),
+        ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Paketteki Calculator.addOne ile artırılıyor:',
-              textAlign: TextAlign.center,
+      body: ListView.builder(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        itemCount: LoadingStyle.values.length,
+        itemBuilder: (context, index) {
+          final style = LoadingStyle.values[index];
+          final meta = styleCatalog[style]!;
+          return Card(
+            margin: const EdgeInsets.only(bottom: 12),
+            child: ListTile(
+              contentPadding: const EdgeInsets.all(16),
+              leading: SizedBox(
+                width: 56,
+                height: 56,
+                child: Center(
+                  child: AnkaSuperLoading(style: style, size: 40),
+                ),
+              ),
+              title: Text(meta.title),
+              subtitle: Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Text(meta.subtitle),
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () {
+                Navigator.of(context).push<void>(
+                  MaterialPageRoute<void>(
+                    builder: (context) => StyleDemoPage(style: style),
+                  ),
+                );
+              },
             ),
-            const SizedBox(height: 16),
-            Text(
-              '$_value',
-              style: Theme.of(context).textTheme.displayMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _addOne,
-        tooltip: 'Bir ekle (paket)',
-        child: const Icon(Icons.add),
+          );
+        },
       ),
     );
   }
 }
+
+/// Per-style playground with size, speed, and colour controls.
+class StyleDemoPage extends StatefulWidget {
+  const StyleDemoPage({super.key, required this.style});
+
+  final LoadingStyle style;
+
+  @override
+  State<StyleDemoPage> createState() => _StyleDemoPageState();
+}
+
+class _StyleDemoPageState extends State<StyleDemoPage> {
+  double _size = 96;
+  double _durationMs = 1400;
+  Color _color = Colors.indigo;
+
+  static const _presetColors = <Color>[
+    Colors.indigo,
+    Colors.teal,
+    Colors.deepOrange,
+    Colors.purple,
+    Colors.black87,
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final meta = styleCatalog[widget.style]!;
+    final duration = Duration(milliseconds: _durationMs.round());
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(meta.title),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(20),
+        children: [
+          Text(
+            meta.subtitle,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          const SizedBox(height: 32),
+          Center(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                border: Border.all(color: Theme.of(context).dividerColor),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: AnkaSuperLoading(
+                  style: widget.style,
+                  size: _size,
+                  color: _color,
+                  duration: duration,
+                  semanticsLabel: '${meta.title} preview',
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 32),
+          Text('Size (${_size.round()} px)', style: Theme.of(context).textTheme.titleSmall),
+          Slider(
+            min: 32,
+            max: 160,
+            value: _size.clamp(32, 160),
+            onChanged: (v) => setState(() => _size = v),
+          ),
+          Text(
+            'Loop duration (${duration.inMilliseconds} ms)',
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          Slider(
+            min: 600,
+            max: 3200,
+            value: _durationMs.clamp(600, 3200),
+            onChanged: (v) => setState(() => _durationMs = v),
+          ),
+          const SizedBox(height: 8),
+          Text('Accent colour', style: Theme.of(context).textTheme.titleSmall),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final c in _presetColors)
+                GestureDetector(
+                  onTap: () => setState(() => _color = c),
+                  child: CircleAvatar(
+                    backgroundColor: c,
+                    child: _color == c
+                        ? const Icon(Icons.check, color: Colors.white, size: 20)
+                        : null,
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 32),
+          Text('Sample code', style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 8),
+          SelectableText(
+            _snippet(widget.style),
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  fontFamily: 'monospace',
+                ),
+          ),
+          const SizedBox(height: 24),
+          Text(
+            'Package version (pubspec): 0.1.0',
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: Theme.of(context).hintColor,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _snippet(LoadingStyle style) {
+    final name = style.name;
+    return "AnkaSuperLoading(\n  style: LoadingStyle.$name,\n  size: 64,\n  duration: const Duration(milliseconds: 1400),\n);";
+  }
+}
+
+/// Human-readable copy for each [LoadingStyle].
+class StyleMeta {
+  const StyleMeta({required this.title, required this.subtitle});
+
+  final String title;
+  final String subtitle;
+}
+
+/// Gallery labels keyed by [LoadingStyle].
+const styleCatalog = <LoadingStyle, StyleMeta>{
+  LoadingStyle.pulseOrbit: StyleMeta(
+    title: 'Pulse orbit',
+    subtitle: 'Three dots pulsing in sequence — good for compact inline states.',
+  ),
+  LoadingStyle.ringStroke: StyleMeta(
+    title: 'Ring stroke',
+    subtitle: 'Classic sweeping arc on a ring — familiar and unobtrusive.',
+  ),
+  LoadingStyle.shimmerBar: StyleMeta(
+    title: 'Shimmer bar',
+    subtitle: 'Horizontal bar with a moving highlight — ideal for placeholders.',
+  ),
+  LoadingStyle.segmentSpinner: StyleMeta(
+    title: 'Segment spinner',
+    subtitle: 'Staggered arc segments rotating together.',
+  ),
+  LoadingStyle.waveDots: StyleMeta(
+    title: 'Wave dots',
+    subtitle: 'Dots oscillate vertically in a wave pattern.',
+  ),
+};

@@ -129,11 +129,11 @@ The example app (`example/`) should act as a **showcase**, not a second product.
 
 | Artifact | Role |
 |----------|------|
-| **`docs/analysis.md`** (this file) | Architecture and product decisions before/during implementation. |
+| **`doc/analysis.md`** (this file) | Architecture and product decisions before/during implementation. |
 | **`README.md`** (root) | Quick start, GIFs or static images of five loaders, API table. |
 | **`CHANGELOG.md`** | Follow Keep a Changelog when releasing. |
 
-Consider linking `README.md` to `docs/analysis.md` for contributors.
+Consider linking `README.md` to `doc/analysis.md` for contributors.
 
 ---
 

@@ -1,39 +1,59 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# anka_super_loading_package
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+Five curated **indeterminate** loading animations for Flutter behind one small API: pick a [`LoadingStyle`](lib/src/loading_style.dart) and drop in [`AnkaSuperLoading`](lib/src/super_loading.dart).
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+| Style | Description |
+|--------|-------------|
+| `pulseOrbit` | Three dots pulsing in sequence. |
+| `ringStroke` | Sweeping arc on a circular ring. |
+| `shimmerBar` | Rounded bar with a travelling highlight. |
+| `segmentSpinner` | Short arc segments rotating with staggered phase. |
+| `waveDots` | Dots moving vertically in a wave pattern. |
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Design notes and roadmap live in [doc/analysis.md](doc/analysis.md).
 
-## Features
+## Install
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+```yaml
+dependencies:
+  anka_super_loading_package: ^0.1.0
+```
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+```bash
+dart pub add anka_super_loading_package
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
 ```dart
-const like = 'sample';
+import 'package:anka_super_loading_package/anka_super_loading_package.dart';
+
+AnkaSuperLoading(
+  style: LoadingStyle.ringStroke,
+  size: 64,
+  color: Theme.of(context).colorScheme.primary,
+  duration: const Duration(milliseconds: 1400),
+  semanticsLabel: 'Loading data',
+);
 ```
 
-## Additional information
+When `color` is omitted, loaders use `Theme.of(context).colorScheme.primary`. When `size` is omitted, the default side length is `48` (`kAnkaDefaultLoadingSize`). If `MediaQuery.disableAnimations` is true, each style shows a static frame instead of animating.
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+## Example
+
+Run the bundled gallery from the repository root:
+
+```bash
+cd example
+flutter run
+```
+
+The example lists every style, supports **light / dark / system** theme from the app bar, and opens a detail screen with sliders for size and loop duration plus colour presets.
+
+## Contributing
+
+Issues and pull requests are welcome on [GitHub](https://github.com/NurhayatYurtaslan/anka_super_loading_package).
+
+## Screenshots
+
+_Add GIFs or static images of the five loaders here after you capture them from the example app._

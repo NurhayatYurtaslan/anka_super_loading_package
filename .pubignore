@@ -1,0 +1,9 @@
+# Dev / meta files not needed on pub.dev
+.cursor/
+CLAUDE.md
+commits.md
+pull_request_template.md
+
+# Local artifacts (never ship in the tarball)
+build/
+*.iml

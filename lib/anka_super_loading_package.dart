@@ -1,5 +1,5 @@
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+/// Custom indeterminate loading animations for Flutter.
+library;
+
+export 'src/loading_style.dart';
+export 'src/super_loading.dart';
