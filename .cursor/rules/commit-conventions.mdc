@@ -1,0 +1,23 @@
+---
+description: Git commit mesajları commits.md’deki tiplere ve biçime uymalıdır.
+alwaysApply: true
+---
+
+# Commit mesajları
+
+- **Kaynak**: İzin verilen commit türleri ve açıklamaları için repo kökündeki `commits.md` dosyası tek doğruluk kaynağıdır; yeni bir tür uydurma.
+- **Biçim**: Tek satır özeti `type: kısa açıklama` (isteğe bağlı kapsam: `type(kapsam): açıklama`). İngilizce küçük harf `type`; konu cümlesi gibi net bir öz, nokta ile bitirme.
+- **Gövde**: Gerekirse boş satırdan sonra madde madde veya kısa paragrafla bağlam ver; ne ve neden olduğunu yaz.
+- **İmza**: `commits.md` sonundaki imza satırına uy: commit mesajının sonuna şu satırı ekle:
+
+  `signed by the author @gurkanfikretgunak`
+
+- **Yanlış örnek**: `fixed stuff`, `WIP`, türü olmayan veya `commits.md` listesinde olmayan bir `type`.
+
+- **Doğru örnek**:
+
+  ```
+  feat: add export for widget settings
+
+  signed by the author @gurkanfikretgunak
+  ```
