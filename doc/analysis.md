@@ -95,7 +95,7 @@ Keep `src/` for implementation privacy; export only the barrel and any intention
 
 ## 4. Example application design
 
-The example app (`example/`) should act as a **showcase**, not a second product.
+The example app (`example/`) should act as a **showcase**, not a second product. In this repository the example is limited to **Android**, **iOS**, and **Web** platform folders (desktop runners are intentionally omitted).
 
 ### 4.1 Information architecture
 

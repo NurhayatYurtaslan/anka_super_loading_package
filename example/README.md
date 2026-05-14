@@ -2,6 +2,8 @@
 
 A new Flutter project.
 
+This example app is maintained for **Android**, **iOS**, and **Web** only (no Linux, macOS, or Windows desktop runners in this repository).
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
