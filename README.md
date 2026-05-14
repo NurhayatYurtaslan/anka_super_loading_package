@@ -16,7 +16,7 @@ Design notes and roadmap live in [doc/analysis.md](doc/analysis.md).
 
 ```yaml
 dependencies:
-  anka_super_loading_package: ^0.1.1
+  anka_super_loading_package: ^0.1.2
 ```
 
 ```bash
@@ -50,10 +50,18 @@ flutter run
 
 The example lists every style, supports **light / dark / system** theme from the app bar, and opens a detail screen with sliders for size and loop duration plus colour presets.
 
+## Screenshots
+
+Captured from the example app on iOS Simulator. Source files live under [`assets/screenshots/`](assets/screenshots/).
+
+| Gallery | Style demo (tuning) |
+| :---: | :---: |
+| ![Gallery: all loading styles](assets/screenshots/gallery.png) | ![Style demo with sliders](assets/screenshots/style_demo.png) |
+
+| Loader previews |
+| :---: |
+| ![Loader previews](assets/screenshots/loaders_preview.png) |
+
 ## Contributing
 
 Issues and pull requests are welcome on [GitHub](https://github.com/NurhayatYurtaslan/anka_super_loading_package).
-
-## Screenshots
-
-_Add GIFs or static images of the five loaders here after you capture them from the example app._

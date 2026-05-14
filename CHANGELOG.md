@@ -1,3 +1,7 @@
+## 0.1.2
+
+* README: add screenshots from `assets/screenshots/` (gallery, style demo, loaders preview).
+
 ## 0.1.1
 
 * Expand English dartdoc and inline comments across `lib/src` loaders, [AnkaSuperLoading], and the example gallery app (no API or behaviour changes).
