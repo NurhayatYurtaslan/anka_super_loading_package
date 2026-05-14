@@ -515,7 +515,7 @@ class _StyleDemoPageState extends State<StyleDemoPage> {
           ),
           const SizedBox(height: 24),
           Text(
-            'Package version (pubspec): 0.1.2',
+            'Package version (pubspec): 0.1.3',
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
                   color: Theme.of(context).hintColor,
                 ),

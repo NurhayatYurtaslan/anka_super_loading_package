@@ -38,7 +38,7 @@ Tapping any gallery row opens the same **playground** for that preset: bordered 
 
 ```yaml
 dependencies:
-  anka_super_loading_package: ^0.1.2
+  anka_super_loading_package: ^0.1.3
 ```
 
 ```bash

@@ -1,3 +1,8 @@
+## 0.1.3
+
+* Example: iOS Podfile and Flutter xcconfig include paths for CocoaPods; branding asset for the gallery app.
+* README and example documentation updates; package `assets/logos` for branding (no API changes).
+
 ## 0.1.2
 
 * README: add screenshots from `assets/screenshots/` (gallery, style demo, loaders preview).
